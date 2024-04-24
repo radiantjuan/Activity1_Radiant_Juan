@@ -1,16 +1,20 @@
 <?php
+/**
+ * Home page controller
+ *
+ * @author    Radiant C. Juan <K230925@Student.kent.edu.au>
+ * @copyright 2024 Radiant Juan - K230925
+ */
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
+use App\Config\Views\View;
 
-class HomeController
+class HomeController extends BaseController
 {
-
-    public function index()
-    {
-        $user = new UserModel();
-        $user->find(1);
-        echo "Welcome to the Home Paasdfasdfge!";
+    public function index() {
+        //establishes that the user needs to be logged in
+        $this->requireAuthentication();
+        View::render('Home/index');
     }
 }

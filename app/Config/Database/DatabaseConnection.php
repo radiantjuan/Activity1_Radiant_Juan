@@ -1,4 +1,10 @@
 <?php
+/**
+ * Database connection establisher
+ *
+ * @author    Radiant C. Juan <K230925@Student.kent.edu.au>
+ * @copyright 2024 Radiant Juan - K230925
+ */
 
 namespace App\Config\Database;
 
@@ -14,6 +20,11 @@ class DatabaseConnection implements DatabaseConnectionInterface
         $this->config = $config;
     }
 
+    /**
+     * Connection establishment
+     *
+     * @return PDO|void
+     */
     public function connect()
     {
         $dbHost = $this->config['host'];

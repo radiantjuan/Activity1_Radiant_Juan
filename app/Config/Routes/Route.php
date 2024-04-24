@@ -1,4 +1,10 @@
 <?php
+/**
+ * Routes base configuration
+ *
+ * @author    Radiant C. Juan <K230925@Student.kent.edu.au>
+ * @copyright 2024 Radiant Juan - K230925
+ */
 
 namespace App\Config\Routes;
 
@@ -31,19 +37,26 @@ class Route
         self::$routes[] = ['DELETE', $uri, $controller, $method];
     }
 
+    /**
+     * Route dispatcher is the heart of the application routing
+     *
+     * @param string $method Request method type
+     * @param string $uri    URI
+     *
+     * @return void
+     */
     public static function dispatch($method, $uri)
     {
         foreach (self::$routes as $route) {
-            list($routeMethod, $routeUri, $controller, $functionName) = $route;
 
+            list($routeMethod, $routeUri, $controller, $functionName) = $route;
             // Check if method and URI match
             if ($method === $routeMethod && self::matchUri($routeUri, $uri)) {
                 $url_params = self::extractUrlParams($routeUri, $uri);
 
+                $postData = [];
                 if (in_array($method, ['POST', 'PUT', 'PATCH', 'DELETE'])) {
-                    $postData = file_get_contents('php://input');
-                } else {
-                    $postData = [];
+                    $postData = $_POST;
                 }
 
                 $request_data = array_merge($postData, $url_params);
@@ -62,6 +75,14 @@ class Route
         echo "404 Not Found";
     }
 
+    /**
+     * Validation if URI is valid
+     *
+     * @param string $pattern URL Pattern
+     * @param string $uri     URI
+     *
+     * @return bool|int
+     */
     protected static function matchUri($pattern, $uri)
     {
         // Exact match
@@ -76,6 +97,15 @@ class Route
         return preg_match($pattern, $uri);
     }
 
+    /**
+     * URL parameters extractor
+     * Usage: /posts/{extracts_this_parameter_to_array}
+     *
+     * @param string $pattern URL pattern
+     * @param string $uri     URI
+     *
+     * @return array
+     */
     protected static function extractUrlParams($pattern, $uri)
     {
         // Extract URL parameters

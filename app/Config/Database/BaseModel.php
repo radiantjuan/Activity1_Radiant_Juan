@@ -44,6 +44,7 @@ class BaseModel
      */
     public function all($table)
     {
+        $table = $this->table;
         $stmt = $this->pdo->query("SELECT * FROM $table");
         return $stmt->fetchAll();
     }
@@ -56,8 +57,9 @@ class BaseModel
      *
      * @return false|string
      */
-    public function create($table, $data)
+    public function create($data)
     {
+        $table = $this->table;
         $keys = implode(', ', array_keys($data));
         $values = ':' . implode(', :', array_keys($data));
         $sql = "INSERT INTO $table ($keys) VALUES ($values)";
@@ -75,8 +77,9 @@ class BaseModel
      *
      * @return void
      */
-    public function update($table, $id, $data)
+    public function update($id, $data)
     {
+        $table = $this->table;
         $set = '';
         foreach ($data as $key => $value) {
             $set .= "$key = :$key, ";
@@ -96,8 +99,9 @@ class BaseModel
      *
      * @return void
      */
-    public function delete($table, $id)
+    public function delete($id)
     {
+        $table = $this->table;
         $stmt = $this->pdo->prepare("DELETE FROM $table WHERE id = :id");
         $stmt->execute(['id' => $id]);
     }
@@ -110,8 +114,9 @@ class BaseModel
      *
      * @return array|false
      */
-    public function where($table, $conditions)
+    public function where($conditions)
     {
+        $table = $this->table;
         $where = '';
         foreach ($conditions as $key => $value) {
             $where .= "$key = :$key AND ";

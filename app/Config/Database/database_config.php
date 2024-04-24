@@ -1,6 +1,6 @@
 <?php
 /**
- * Base Model
+ * Database configuration credentials
  *
  * @author Radiant C. Juan <K230925@Student.kent.edu.au>
  * @copyright 2024 Radiant Juan - K230925

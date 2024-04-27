@@ -15,9 +15,15 @@ use App\Utilities\DebugHelper;
 
 class AuthController extends BaseController
 {
+    /**
+     * Login page
+     *
+     * @return void
+     */
     public function login()
     {
-        View::render('Auth/login');
+        View::render('Auth/login', ['error' => empty($_SESSION['error']) ? null : $_SESSION['error']]);
+        unset($_SESSION['error']);
     }
 
     /**
@@ -40,7 +46,10 @@ class AuthController extends BaseController
                 header('Location: /');
                 exit();
             } else {
-                View::render('Auth/login', ['error' => ['Incorrect credentials']]);
+                $_SESSION['error'] = 'Incorrect username/password';
+                header('Location: /');
+                exit();
+
             }
         }
     }

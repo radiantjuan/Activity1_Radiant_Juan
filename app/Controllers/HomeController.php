@@ -9,6 +9,8 @@
 namespace App\Controllers;
 
 use App\Config\Views\View;
+use App\Models\PostModel;
+use App\Utilities\DebugHelper;
 
 class HomeController extends BaseController
 {
@@ -23,8 +25,12 @@ class HomeController extends BaseController
      *
      * @return void
      */
-    public function index() {
+    public function index()
+    {
         //establishes that the user needs to be logged in
-        View::render('Home/index');
+        $post_model = new PostModel();
+        $featured_posts = $post_model->get_featured_posts();
+        $recent_posts = $post_model->get_recent_posts();
+        View::render('Home/index', compact('featured_posts', 'recent_posts'));
     }
 }

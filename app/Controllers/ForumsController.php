@@ -50,7 +50,7 @@ class ForumsController extends BaseController
         $sort_order = !empty($_GET['sort_order']) ? $_GET['sort_order'] : 'ASC';
         $search_term = !empty($_GET['q']) ? $_GET['q'] : null;
         $forum_posts = $this->forums_model->get_posts($request['forum_slug'], $page, $sort_by, $sort_order, $search_term);
-        View::render('Forums/posts', [
+        View::render('Forums/forum_posts', [
             'data' => [
                 'forum_detail' => !empty($forum_detail) ? $forum_detail[0] : null,
                 'posts' => !empty($forum_posts) ? $forum_posts : null

@@ -26,5 +26,10 @@ Route::patch('/user/{id}', \App\Controllers\UsersController::class, 'update_user
 Route::get('/forums', \App\Controllers\ForumsController::class, 'index');
 Route::get('/forums/{forum_slug}/posts', \App\Controllers\ForumsController::class, 'forum_posts');
 
+//posts
+Route::get('/posts/{post_id}', \App\Controllers\PostsController::class, 'show');
+Route::post('/posts/{post_id}/reply', \App\Controllers\PostsController::class, 'reply_to_post');
+Route::patch('/posts/post_reply/vote', \App\Controllers\PostsController::class, 'vote_reply');
+
 // Dispatch the request
 Route::dispatch($_POST['_method'] ?? $_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);

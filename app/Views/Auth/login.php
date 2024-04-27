@@ -21,11 +21,7 @@ Login page view
     <?php if (!empty(\App\Config\Views\View::getData('error'))): ?>
         <div class="alert alert-danger">
             <ul>
-                <?php foreach (\App\Config\Views\View::getData('error') as $errors): ?>
-                    <li>
-                        <?= $errors ?>
-                    </li>
-                <?php endforeach; ?>
+                <?= \App\Config\Views\View::getData('error') ?>
             </ul>
         </div>
     <?php endif; ?>

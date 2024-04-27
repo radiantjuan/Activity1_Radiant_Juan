@@ -49,6 +49,7 @@ class Route
      */
     public static function dispatch($method, $uri)
     {
+
         foreach (self::$routes as $route) {
 
             list($routeMethod, $routeUri, $controller, $functionName) = $route;
@@ -56,7 +57,6 @@ class Route
 
             if ($method === $routeMethod && self::matchUri($routeUri, $uri)) {
                 $url_params = self::extractUrlParams($routeUri, $uri);
-
                 $postData = [];
                 if (in_array($method, ['POST', 'PUT', 'PATCH', 'DELETE'])) {
                     $postData = $_POST;

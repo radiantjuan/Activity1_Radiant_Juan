@@ -49,10 +49,14 @@ $next_page_url = !empty($_GET['page']) ? '/forums/' . $forum_slug . '/posts?page
             Sort By
         </button>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="/forums/<?= $forum_slug ?>/posts?sort_by=title&sort_order=ASC">Title (A-Z)</a>
-            <a class="dropdown-item" href="/forums/<?= $forum_slug ?>/posts?sort_by=title&sort_order=DESC">Title (Z-A)</a>
-            <a class="dropdown-item" href="/forums/<?= $forum_slug ?>/posts?sort_by=post_date&sort_order=ASC">Date (Oldest First)</a>
-            <a class="dropdown-item" href="/forums/<?= $forum_slug ?>/posts?sort_by=post_date&sort_order=DESC">Date (Newest First)</a>
+            <a class="dropdown-item" href="/forums/<?= $forum_slug ?>/posts?sort_by=title&sort_order=ASC">Title
+                (A-Z)</a>
+            <a class="dropdown-item" href="/forums/<?= $forum_slug ?>/posts?sort_by=title&sort_order=DESC">Title
+                (Z-A)</a>
+            <a class="dropdown-item" href="/forums/<?= $forum_slug ?>/posts?sort_by=post_date&sort_order=ASC">Date
+                (Oldest First)</a>
+            <a class="dropdown-item" href="/forums/<?= $forum_slug ?>/posts?sort_by=post_date&sort_order=DESC">Date
+                (Newest First)</a>
         </div>
     </div>
 

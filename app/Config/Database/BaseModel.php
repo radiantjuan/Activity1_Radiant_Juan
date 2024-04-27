@@ -15,7 +15,7 @@ class BaseModel
 
     public function __construct()
     {
-        $config = require_once 'database_config.php';
+        $config = require 'database_config.php';
         $dbConnection = new DatabaseConnection($config);
         $this->pdo = $dbConnection->connect();
     }

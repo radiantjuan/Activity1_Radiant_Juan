@@ -52,7 +52,8 @@ class AuthController extends BaseController
      */
     public function register()
     {
-        View::render('Auth/registration');
+        View::render('Auth/registration', ['error' => $_SESSION['error']]);
+        unset($_SESSION['error']);
     }
 
     /**
@@ -65,18 +66,40 @@ class AuthController extends BaseController
     public function register_user($requests)
     {
         $user = new UserModel();
-        try {
-            $user->create(
-                [
-                    'username' => $requests['name'],
-                    'password' => password_hash($requests['password'], PASSWORD_DEFAULT),
-                    'email' => $requests['email']
-                ]
-            );
-            header('location: /login');
+        $this->errors = $this->validate_inputs($requests);
+        if (!empty($this->errors)) {
+            $_SESSION['error'] = $this->errors;
+            header('location: /register');
             exit();
+        }
+
+        try {
+            if (!empty($this->errors)) {
+                $user->create(
+                    [
+                        'username' => $requests['username'],
+                        'password' => password_hash($requests['password'], PASSWORD_DEFAULT),
+                        'email' => $requests['email']
+                    ]
+                );
+                unset($_SESSION['error']);
+                header('location: /login');
+                exit();
+            }
+
+            throw new \Exception('User cannot be registered, please contact Administrator', '422');
+
         } catch (\Exception $e) {
-            View::render('Auth/registration', ['error' => ['Email is already taken']]);
+            if ($e->getCode() === '23000') {
+                $_SESSION['error'] = ['Email is already taken'];
+            }
+
+            if ($e->getCode() === 422) {
+                $_SESSION['error'] = [$e->getMessage()];
+            }
+
+            header('location: /register');
+            exit();
         }
 
 
@@ -119,5 +142,39 @@ class AuthController extends BaseController
                 'tier_level' => $user['tier_level']
             ]
         );
+    }
+
+
+    /**
+     * Validate input fields
+     *
+     * @param $inputs request payload to be validated
+     *
+     * @return array
+     */
+    public function validate_inputs($inputs)
+    {
+        $errors = [];
+
+        // Validate username
+        if (!isset($inputs['username']) || empty($inputs['username'])) {
+            $errors[] = 'Username is required';
+        } elseif (strlen($inputs['username']) > 55) {
+            $errors[] = 'Username must be maximum 55 characters';
+        }
+
+        // Validate email
+        if (!isset($inputs['email']) || empty($inputs['email']) || !filter_var($inputs['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors[] = 'Invalid email format';
+        }
+
+        // Validate password
+        if (!isset($inputs['password']) || empty($inputs['password'])) {
+            $errors[] = 'Password is required';
+        } elseif (!preg_match('/^(?=.*[!@#$%^&*])(?=.*[A-Z])(?=.*[0-9]).{8,}$/', $inputs['password'])) {
+            $errors[] = 'Password should consist of at least 1 special character, 1 uppercase letter, and 1 number, and be at least 8 characters long';
+        }
+
+        return $errors;
     }
 }

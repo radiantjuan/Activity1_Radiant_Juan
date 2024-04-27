@@ -42,7 +42,7 @@ class BaseModel
      *
      * @return mixed
      */
-    public function all($table)
+    public function all()
     {
         $table = $this->table;
         $stmt = $this->pdo->query("SELECT * FROM $table");
@@ -109,7 +109,6 @@ class BaseModel
     /**
      * Retrieve records from a table based on conditions
      *
-     * @param string $table      table name
      * @param array  $conditions consists of column and query you want to search
      *
      * @return array|false

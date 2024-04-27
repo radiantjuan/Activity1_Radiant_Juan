@@ -33,7 +33,7 @@ Registration page view
     <form method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" name="name" placeholder="Enter your name" required>
+            <input type="text" class="form-control" name="username" placeholder="Enter your name" required>
         </div>
         <div class="form-group">
             <label for="email">Email address:</label>

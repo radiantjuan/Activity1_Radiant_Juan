@@ -8,6 +8,8 @@
 
 namespace App\Config\Routes;
 
+use App\Utilities\DebugHelper;
+
 class Route
 {
     protected static $routes = [];
@@ -51,6 +53,7 @@ class Route
 
             list($routeMethod, $routeUri, $controller, $functionName) = $route;
             // Check if method and URI match
+
             if ($method === $routeMethod && self::matchUri($routeUri, $uri)) {
                 $url_params = self::extractUrlParams($routeUri, $uri);
 
@@ -85,17 +88,22 @@ class Route
      */
     protected static function matchUri($pattern, $uri)
     {
+        // Extract path from URI (remove query parameters)
+        $uriParts = explode('?', $uri, 2);
+        $uriPath = $uriParts[0];
+
         // Exact match
-        if ($pattern === $uri) {
+        if ($pattern === $uriPath) {
             return true;
         }
 
         // Parameter match
-        $pattern = preg_replace('#{[a-zA-Z0-9]+}#', '([a-zA-Z0-9-]+)', $pattern);
+        $pattern = preg_replace('#{[\w\W\d\D]+}#', '([\w\W\d\D]+)', $pattern);
         $pattern = '#^' . $pattern . '$#';
 
-        return preg_match($pattern, $uri);
+        return preg_match($pattern, $uriPath);
     }
+
 
     /**
      * URL parameters extractor

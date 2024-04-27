@@ -22,5 +22,9 @@ Route::post('/register', \App\Controllers\Auth\AuthController::class, 'register_
 Route::get('/user/{id}', \App\Controllers\UsersController::class, 'index');
 Route::patch('/user/{id}', \App\Controllers\UsersController::class, 'update_user');
 
+//forums
+Route::get('/forums', \App\Controllers\ForumsController::class, 'index');
+Route::get('/forums/{forum_slug}/posts', \App\Controllers\ForumsController::class, 'forum_posts');
+
 // Dispatch the request
 Route::dispatch($_POST['_method'] ?? $_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);

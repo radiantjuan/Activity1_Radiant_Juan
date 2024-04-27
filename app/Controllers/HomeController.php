@@ -12,6 +12,12 @@ use App\Config\Views\View;
 
 class HomeController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->requireAuthentication();
+    }
+
     /**
      * Home page of online forum
      *
@@ -19,7 +25,6 @@ class HomeController extends BaseController
      */
     public function index() {
         //establishes that the user needs to be logged in
-        $this->requireAuthentication();
         View::render('Home/index');
     }
 }

@@ -26,6 +26,7 @@ class UsersController extends BaseController
         parent::__construct();
         $this->user_info = unserialize($_SESSION['user_info']);
         $this->user_model = new UserModel();
+        $this->requireAuthentication();
     }
 
     /**
@@ -52,6 +53,7 @@ class UsersController extends BaseController
      */
     public function update_user($request)
     {
+        $this->requireAuthentication();
         $update = $this->user_model->find_user_by_id($request['id']);
         $request['password'] = empty($request['password']) ? $update['password'] : $request['password'];
 

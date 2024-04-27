@@ -19,13 +19,16 @@ $user_info = unserialize($_SESSION['user_info']);
                 <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/articles">Articles</a>
+                <a class="nav-link" href="/forums">Forums</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/groups">Groups</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/add-new-article"><i class="fas fa-plus"></i> Post a new article</a>
+                <a class="nav-link" href="/groups">Your Topics</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/add-new-article"><i class="fas fa-plus"></i> Post a new topic</a>
             </li>
         </ul>
         <ul class="navbar-nav align-right">

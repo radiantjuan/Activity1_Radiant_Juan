@@ -1,3 +1,10 @@
+<!--
+Login page view
+
+@author Radiant C. Juan <K230925@Student.kent.edu.au>
+@copyright 2024 Radiant Juan - K230925
+-->
+
 <style>
     /* Add custom styles here */
     .container {

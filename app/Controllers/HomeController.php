@@ -12,6 +12,11 @@ use App\Config\Views\View;
 
 class HomeController extends BaseController
 {
+    /**
+     * Home page of online forum
+     *
+     * @return void
+     */
     public function index() {
         //establishes that the user needs to be logged in
         $this->requireAuthentication();

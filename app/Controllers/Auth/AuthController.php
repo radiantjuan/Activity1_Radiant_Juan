@@ -35,7 +35,7 @@ class AuthController extends BaseController
             $user = new UserModel();
             $user_exists = $user->where(['email' => $email]);
             if (!empty($user_exists) && password_verify($password, $user_exists[0]['password'])) {
-                $_SESSION['user_id'] = $user_exists[0]['id'];
+                self::update_user_session($user_exists[0]);
                 unset($_SESSION['login_error']);
                 header('Location: /');
                 exit();
@@ -57,6 +57,13 @@ class AuthController extends BaseController
         View::render('Auth/registration');
     }
 
+    /**
+     * Register the users
+     *
+     * @param $requests request payload
+     *
+     * @return void
+     */
     public function register_user($requests)
     {
         $user = new UserModel();
@@ -77,11 +84,34 @@ class AuthController extends BaseController
      *
      * @return void
      */
-    public function logout_user() {
+    public function logout_user()
+    {
         session_start();
         session_destroy();
         // Redirect to login page or homepage after logout
         header('Location: /login');
         exit();
+    }
+
+
+    /**
+     * Update user login session
+     *
+     * @param array $user
+     *
+     * @return void
+     */
+    public static function update_user_session($user) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_info'] = serialize(
+            [
+                'id' => $user['id'],
+                'email' => $user['email'],
+                'username' => $user['username'],
+                'role' => $user['role'],
+                'avatar' => $user['avatar'],
+                'tier_level' => $user['tier_level']
+            ]
+        );
     }
 }

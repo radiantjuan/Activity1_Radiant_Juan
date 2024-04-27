@@ -75,7 +75,7 @@ class BaseModel
      * @param int    $id    primary key ID
      * @param array  $data  array of values you need to update
      *
-     * @return void
+     * @return bool
      */
     public function update($id, $data)
     {
@@ -88,7 +88,7 @@ class BaseModel
         $sql = "UPDATE $table SET $set WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
         $data['id'] = $id;
-        $stmt->execute($data);
+        return $stmt->execute($data);
     }
 
     /**

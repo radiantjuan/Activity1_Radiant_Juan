@@ -18,6 +18,9 @@ Route::get('/logout', \App\Controllers\Auth\AuthController::class, 'logout_user'
 Route::get('/register', \App\Controllers\Auth\AuthController::class, 'register');
 Route::post('/register', \App\Controllers\Auth\AuthController::class, 'register_user');
 
+//users routes
+Route::get('/user/{id}', \App\Controllers\UsersController::class, 'index');
+Route::patch('/user/{id}', \App\Controllers\UsersController::class, 'update_user');
 
 // Dispatch the request
-Route::dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+Route::dispatch($_POST['_method'] ?? $_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);

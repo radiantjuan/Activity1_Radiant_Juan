@@ -31,8 +31,8 @@ $user_info = unserialize($_SESSION['user_info']);
         <ul class="navbar-nav align-right">
             <li class="nav-item">
                 <a class="nav-link" href="/user/<?=$user_info['id']?>">
-                    <img src="<?= empty($user_info['avatar']) ? 'https://placehold.co/30' : $user_info['avatar'] ?>"
-                         alt="User Profile" class="rounded-circle">
+                    <img src="<?= $user_info['avatar'] ?>"
+                         alt="User Profile" class="rounded-circle" style="max-width: 30px; max-height: 30px;">
                     <?= $user_info['username']; ?>
                 </a>
             </li>

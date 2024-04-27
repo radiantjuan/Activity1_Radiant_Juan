@@ -11,7 +11,6 @@ namespace App\Controllers;
 use App\Config\Views\View;
 use App\Models\UserModel;
 use App\Utilities\DebugHelper;
-use Couchbase\User;
 
 class UsersController extends BaseController
 {
@@ -19,9 +18,13 @@ class UsersController extends BaseController
 
     private $user_model;
 
+    private $user_info;
+
+
     public function __construct()
     {
         parent::__construct();
+        $this->user_info = unserialize($_SESSION['user_info']);
         $this->user_model = new UserModel();
     }
 
@@ -32,10 +35,12 @@ class UsersController extends BaseController
      */
     public function index($requests)
     {
-        $user_info = unserialize($_SESSION['user_info']);
         View::render('Users/index', [
-            'data' => $user_info
+            'data' => $this->user_info,
+            'success' => $_SESSION['success'],
+            'error' => $_SESSION['error']
         ]);
+        unset($_SESSION['success'], $_SESSION['error']);
     }
 
     /**
@@ -66,26 +71,21 @@ class UsersController extends BaseController
                 $updated_user = $this->user_model->update_user($request['id'], $request);
                 //update user session once the user has been updated
                 \App\Controllers\Auth\AuthController::update_user_session($updated_user);
-
-                View::render('Users/index', [
-                    'success' => 'Your profile is successfully updated',
-                    'data' => $updated_user
-                ]);
+                $_SESSION['success'] = 'Your profile is now updated!';
+                header('Location: /user/' . $updated_user['id']);
+                exit();
             } catch (\Exception $e) {
-                View::render('Users/index', [
-                    'error' => [
-                        'Something is not right'
-                    ],
-                    'data' => $update
-                ]);
+                $_SESSION['error'] = 'Something is not right';
+                header('Location: /user/' . $update['id']);
+                exit();
             }
 
         } else {
-            View::render('Users/index', [
-                'error' => $this->errors,
-                'data' => $update
-            ]);
+            $_SESSION['error'] = $this->errors;
         }
+
+        header('Location: /user/' . $update['id']);
+        exit();
     }
 
 
@@ -128,14 +128,6 @@ class UsersController extends BaseController
         $allowed_roles = ['admin', 'moderator', 'user'];
         if (!isset($inputs['role']) || !in_array($inputs['role'], $allowed_roles)) {
             $errors[] = 'Invalid role';
-        }
-
-        // Validate avatar (if provided)
-        if (isset($inputs['avatar']) && !empty($inputs['avatar'])) {
-            $max_file_size = 1024 * 1024; // 1 MB in bytes
-            if ($_FILES['avatar']['size'] > $max_file_size) {
-                $errors[] = 'Avatar image size should not exceed 1 MB';
-            }
         }
 
         return $errors;

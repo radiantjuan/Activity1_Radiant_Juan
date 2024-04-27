@@ -19,6 +19,17 @@ Registration page view
 
 <div class="container">
     <h2 class="text-center">Registration Form</h2>
+    <?php if (!empty(\App\Config\Views\View::getData('error'))): ?>
+        <div class="alert alert-danger">
+            <ul>
+                <?php foreach (\App\Config\Views\View::getData('error') as $errors): ?>
+                    <li>
+                        <?= $errors ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
     <form method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Name:</label>

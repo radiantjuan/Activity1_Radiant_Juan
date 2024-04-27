@@ -18,9 +18,15 @@ Login page view
 </style>
 
 <div class="container">
-    <?php if (!empty($_SESSION['login_error'])): ?>
+    <?php if (!empty(\App\Config\Views\View::getData('error'))): ?>
         <div class="alert alert-danger">
-            <?= $_SESSION['login_error'] ?>
+            <ul>
+                <?php foreach (\App\Config\Views\View::getData('error') as $errors): ?>
+                    <li>
+                        <?= $errors ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
         </div>
     <?php endif; ?>
     <h2 class="text-center">PHP online discussion forum</h2>

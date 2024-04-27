@@ -11,6 +11,7 @@ namespace App\Controllers\Auth;
 use App\Config\Views\View;
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Utilities\DebugHelper;
 
 class AuthController extends BaseController
 {
@@ -36,13 +37,10 @@ class AuthController extends BaseController
             $user_exists = $user->where(['email' => $email]);
             if (!empty($user_exists) && password_verify($password, $user_exists[0]['password'])) {
                 self::update_user_session($user_exists[0]);
-                unset($_SESSION['login_error']);
                 header('Location: /');
                 exit();
             } else {
-                $_SESSION['login_error'] = 'Incorrect login';
-                header('Location: /login');
-                exit();
+                View::render('Auth/login', ['error' => ['Incorrect credentials']]);
             }
         }
     }
@@ -67,16 +65,21 @@ class AuthController extends BaseController
     public function register_user($requests)
     {
         $user = new UserModel();
-        $user->create(
-            [
-                'username' => $requests['name'],
-                'password' => password_hash($requests['password'], PASSWORD_DEFAULT),
-                'email' => $requests['email']
-            ]
-        );
+        try {
+            $user->create(
+                [
+                    'username' => $requests['name'],
+                    'password' => password_hash($requests['password'], PASSWORD_DEFAULT),
+                    'email' => $requests['email']
+                ]
+            );
+            header('location: /login');
+            exit();
+        } catch (\Exception $e) {
+            View::render('Auth/registration', ['error' => ['Email is already taken']]);
+        }
 
-        header('location: /login');
-        exit();
+
     }
 
     /**
@@ -101,7 +104,8 @@ class AuthController extends BaseController
      *
      * @return void
      */
-    public static function update_user_session($user) {
+    public static function update_user_session($user)
+    {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_info'] = serialize(
             [
@@ -109,7 +113,9 @@ class AuthController extends BaseController
                 'email' => $user['email'],
                 'username' => $user['username'],
                 'role' => $user['role'],
-                'avatar' => $user['avatar'],
+                'avatar' => file_exists($_SERVER['DOCUMENT_ROOT'] . '/assets/' . 'tier' . $user['tier_level'] . '.png')
+                    ? '/assets/tier' . $user['tier_level'] . '.png'
+                    : 'https://placehold.co/150',
                 'tier_level' => $user['tier_level']
             ]
         );

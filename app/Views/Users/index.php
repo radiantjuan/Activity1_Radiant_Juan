@@ -81,11 +81,10 @@ $avatar = empty(View::getData('data')['avatar']) ? null : View::getData('data')[
             <?php endif; ?>
         <?php endif; ?>
         <div class="form-group">
-            <label for="avatar">Avatar:</label>
-            <input type="file" class="form-control-file" name="avatar">
+            <label for="avatar">Avatar Rank:</label>
             <img class="mt-3"
-                 src="<?= empty(View::getData('avatar')) ? 'https://placehold.co/150' : $tier_level ?>"
-                 alt="">
+                 src="<?= $avatar ?>"
+                 alt="" style="max-width: 150px; max-height: 150px;">
         </div>
         <button type="submit" class="btn btn-primary">Save Changes</button>
         <a href="/" class="btn btn-secondary">Cancel</a>

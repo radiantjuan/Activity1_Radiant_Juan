@@ -34,5 +34,11 @@ Route::get('/posts/{post_id}', \App\Controllers\PostsController::class, 'show');
 Route::post('/posts/{post_id}/reply', \App\Controllers\PostsController::class, 'reply_to_post');
 Route::patch('/posts/post_reply/vote', \App\Controllers\PostsController::class, 'vote_reply');
 
+
+//inbox
+Route::get('/messages/inbox', \App\Controllers\MessagingController::class, 'inbox');
+Route::get('/messages/sent', \App\Controllers\MessagingController::class, 'sent');
+Route::post('/messages/send_message', \App\Controllers\MessagingController::class, 'get_all_users');
+
 // Dispatch the request
 Route::dispatch($_POST['_method'] ?? $_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);

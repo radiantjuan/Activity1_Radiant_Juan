@@ -37,7 +37,7 @@ $user_info = unserialize($_SESSION['user_info']);
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Inbox <i class="fas fa-envelope"></i></a>
+                <a class="nav-link" href="/messages/inbox">Messaging <i class="fas fa-envelope"></i></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>

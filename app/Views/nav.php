@@ -25,10 +25,7 @@ $user_info = unserialize($_SESSION['user_info']);
                 <a class="nav-link" href="/groups">Groups</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/groups">Your Topics</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/add-new-article"><i class="fas fa-plus"></i> Post a new topic</a>
+                <a class="nav-link" href="/posts">Your Posts</a>
             </li>
         </ul>
         <ul class="navbar-nav align-right">

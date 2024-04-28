@@ -75,6 +75,8 @@ class ForumsModel extends BaseModel
                 forums f
             LEFT JOIN 
                 posts p ON f.id = p.forum_id
+            WHERE
+                p.posts_status = 'published'
             GROUP BY 
                 f.id
             ORDER BY 
@@ -119,7 +121,7 @@ class ForumsModel extends BaseModel
             FROM posts
             JOIN forums ON posts.forum_id = forums.id
             JOIN users ON posts.user_id = users.id
-            WHERE forums.slug = :slug";
+            WHERE forums.slug = :slug AND posts.posts_status = 'published'";
 
         // Append search condition if search term is not empty
         if (!empty($search_term)) {
@@ -140,7 +142,7 @@ class ForumsModel extends BaseModel
         $total_posts_sql = "SELECT COUNT(*) as total_posts
                         FROM posts
                         JOIN forums ON posts.forum_id = forums.id
-                        WHERE forums.slug = :slug";
+                        WHERE forums.slug = :slug AND posts.posts_status = 'published'";
 
         // Append search condition if search term is not empty
         if (!empty($search_term)) {

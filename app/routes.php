@@ -27,6 +27,9 @@ Route::get('/forums', \App\Controllers\ForumsController::class, 'index');
 Route::get('/forums/{forum_slug}/posts', \App\Controllers\ForumsController::class, 'forum_posts');
 
 //posts
+Route::get('/posts', \App\Controllers\PostsController::class, 'index');
+Route::get('/posts/add-posts', \App\Controllers\PostsController::class, 'add_posts');
+Route::post('/posts/create-posts', \App\Controllers\PostsController::class, 'create_posts');
 Route::get('/posts/{post_id}', \App\Controllers\PostsController::class, 'show');
 Route::post('/posts/{post_id}/reply', \App\Controllers\PostsController::class, 'reply_to_post');
 Route::patch('/posts/post_reply/vote', \App\Controllers\PostsController::class, 'vote_reply');

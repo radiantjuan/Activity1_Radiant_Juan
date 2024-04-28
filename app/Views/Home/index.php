@@ -23,11 +23,13 @@ $recent_posts = \App\Config\Views\View::getData('recent_posts');
             <?php foreach ($featured_content as $featured): ?>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <a href="/discussion1" class="card-title"><h5><?= $featured['post_title'] ?></h5></a>
+                        <a href="/posts/<?= $featured['id'] ?>" class="card-title">
+                            <h5><?= $featured['post_title'] ?></h5></a>
                         <p class="card-text"><?= $featured['post_excerpt'] ?></p>
                         <p class="card-text"><small class="text-muted">Author: <a
-                                        href="/author1"><?= $featured['author_name'] ?></a> | Forum: <a
-                                        href="/forum1"><?= $featured['forum_name'] ?></a></small></p>
+                                        href="/#"><?= $featured['author_name'] ?></a> | Forum: <a
+                                        href="/forums/<?= $featured['slug'] ?>/posts"><?= $featured['forum_name'] ?></a></small>
+                        </p>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -39,7 +41,7 @@ $recent_posts = \App\Config\Views\View::getData('recent_posts');
             <h2>Recent Posts and Discussions</h2>
             <div class="list-group">
                 <?php foreach ($recent_posts as $recent_post): ?>
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <a href="/posts/<?= $recent_post['id'] ?>" class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1"><?= $recent_post['post_title'] ?></h5>
                             <small><?= \App\Utilities\DateFormatHelper::formatDate($recent_post['post_date']) ?></small>

@@ -8,6 +8,11 @@ class BaseController
     {
         // Start session if not already started
         if (session_status() === PHP_SESSION_NONE) {
+            // Set session lifetime to 30 minutes (1800 seconds)
+            $sessionLifetime = 1800; // 30 minutes
+
+            // Set the session cookie parameters
+            session_set_cookie_params($sessionLifetime);
             session_start();
         }
     }

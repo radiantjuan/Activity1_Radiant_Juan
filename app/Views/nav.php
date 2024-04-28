@@ -27,6 +27,9 @@ $user_info = unserialize($_SESSION['user_info']);
             <li class="nav-item">
                 <a class="nav-link" href="/posts">Your Posts</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/friends">Friends</a>
+            </li>
         </ul>
         <ul class="navbar-nav align-right">
             <li class="nav-item">

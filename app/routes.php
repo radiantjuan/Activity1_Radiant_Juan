@@ -40,5 +40,10 @@ Route::get('/messages/inbox', \App\Controllers\MessagingController::class, 'inbo
 Route::get('/messages/sent', \App\Controllers\MessagingController::class, 'sent');
 Route::post('/messages/send_message', \App\Controllers\MessagingController::class, 'get_all_users');
 
+//friends
+Route::get('/friends', \App\Controllers\FriendsController::class, 'index');
+Route::patch('/friends', \App\Controllers\FriendsController::class, 'process_friend_request');
+Route::post('/friends/send-friend-request', \App\Controllers\FriendsController::class, 'send_friend_request');
+
 // Dispatch the request
 Route::dispatch($_POST['_method'] ?? $_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);

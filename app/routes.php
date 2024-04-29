@@ -45,5 +45,12 @@ Route::get('/friends', \App\Controllers\FriendsController::class, 'index');
 Route::patch('/friends', \App\Controllers\FriendsController::class, 'process_friend_request');
 Route::post('/friends/send-friend-request', \App\Controllers\FriendsController::class, 'send_friend_request');
 
+
+//groups
+Route::get('/groups', \App\Controllers\GroupsController::class, 'index');
+Route::post('/groups/add-group', \App\Controllers\GroupsController::class, 'add_group');
+Route::get('/groups/{group_id}/group_members', \App\Controllers\GroupsController::class, 'group_members');
+
+
 // Dispatch the request
 Route::dispatch($_POST['_method'] ?? $_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);

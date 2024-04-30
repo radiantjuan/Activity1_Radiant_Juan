@@ -83,7 +83,7 @@ class AuthController extends BaseController
         }
 
         try {
-            if (!empty($this->errors)) {
+            if (empty($this->errors)) {
                 $user->create(
                     [
                         'username' => $requests['username'],

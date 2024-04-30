@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Apr 29, 2024 at 05:14 AM
+-- Generation Time: Apr 30, 2024 at 09:12 AM
 -- Server version: 5.7.44
 -- PHP Version: 8.2.8
 
@@ -142,24 +142,25 @@ CREATE TABLE `group_memberships` (
   `group_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `joined_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `invitation_status` enum('pending','accepted','rejected') DEFAULT 'pending'
+  `invitation_status` enum('pending','accepted','rejected') DEFAULT 'pending',
+  `invited_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `group_memberships`
 --
 
-INSERT INTO `group_memberships` (`id`, `group_id`, `user_id`, `joined_at`, `invitation_status`) VALUES
-(1, 13, 1, '2024-04-28 11:57:33', 'accepted'),
-(2, 14, 2, '2024-04-28 11:57:33', 'accepted'),
-(3, 2, 2, '2024-04-28 11:57:33', 'pending'),
-(4, 12, 12, '2024-04-28 11:57:33', 'pending'),
-(5, 1, 1, '2024-04-28 11:57:33', 'accepted'),
-(6, 15, 15, '2024-04-28 11:57:33', 'accepted'),
-(7, 16, 16, '2024-04-28 11:57:33', 'accepted'),
-(8, 17, 17, '2024-04-28 11:57:33', 'accepted'),
-(9, 18, 18, '2024-04-28 11:57:33', 'accepted'),
-(10, 19, 19, '2024-04-28 11:57:33', 'accepted');
+INSERT INTO `group_memberships` (`id`, `group_id`, `user_id`, `joined_at`, `invitation_status`, `invited_by`) VALUES
+(1, 13, 1, '2024-04-28 11:57:33', 'accepted', 12),
+(2, 14, 2, '2024-04-28 11:57:33', 'accepted', 16),
+(3, 2, 2, '2024-04-28 11:57:33', 'pending', 15),
+(4, 12, 12, '2024-04-28 11:57:33', 'pending', 14),
+(5, 1, 1, '2024-04-28 11:57:33', 'accepted', 2),
+(6, 15, 15, '2024-04-28 11:57:33', 'accepted', 16),
+(7, 16, 16, '2024-04-28 11:57:33', 'accepted', 18),
+(8, 17, 17, '2024-04-28 11:57:33', 'accepted', 19),
+(9, 18, 18, '2024-04-28 11:57:33', 'accepted', 16),
+(10, 19, 19, '2024-04-28 11:57:33', 'accepted', 16);
 
 -- --------------------------------------------------------
 
@@ -185,7 +186,6 @@ CREATE TABLE `posts` (
 
 INSERT INTO `posts` (`id`, `user_id`, `title`, `forum_id`, `content`, `excerpt`, `featured`, `post_date`, `posts_status`) VALUES
 (1, 1, 'Tips for Effective Time Management', 6, 'Share your tips and strategies for managing time efficiently and increasing productivity in daily life.', 'Effective time management strategies.', 0, '2024-04-28 07:10:55', 'pending_approval'),
-(2, 2, 'Introduction to Cybersecurity', 7, 'Learn about the fundamentals of cybersecurity, including threats, vulnerabilities, and best practices for securing digital assets.', 'Getting started with cybersecurity.', 0, '2024-04-28 07:10:55', 'pending_approval'),
 (3, 1, 'Exploring Functional Programming Paradigm', 8, 'Understand the concepts of functional programming and its benefits in software development. Explore languages like Haskell and Clojure.', 'Introduction to functional programming.', 0, '2024-04-28 07:10:55', 'pending_approval'),
 (4, 2, 'Creating Interactive Web Applications with React', 9, 'Discover the power of React.js in building interactive and dynamic web applications. Learn about components, state management, and more.', 'Building web apps with React.', 0, '2024-04-28 07:10:55', 'pending_approval'),
 (5, 1, 'UI/UX Design Principles for Mobile Apps', 10, 'Explore UI/UX design principles tailored for mobile applications. Learn how to create intuitive and visually appealing mobile interfaces.', 'Designing mobile app UI/UX.', 0, '2024-04-28 07:10:55', 'pending_approval'),
@@ -207,7 +207,6 @@ INSERT INTO `posts` (`id`, `user_id`, `title`, `forum_id`, `content`, `excerpt`,
 (21, 2, 'Building Modern E-Commerce Websites with React', 9, 'Explore how React can revolutionize the way you build e-commerce websites. From dynamic product listings to seamless checkout experiences, leverage React for success.', 'Elevate your e-commerce with React.', 0, '2024-04-28 07:12:15', 'published'),
 (22, 1, 'The Psychology of Color in Design', 10, 'Uncover the psychological effects of color in design and how it influences user perception and behavior. Learn how to use color strategically to evoke emotions and convey messages.', 'Harness the power of color psychology.', 0, '2024-04-28 07:12:15', 'published'),
 (23, 2, 'Exploring Traditional Music Instruments', 11, 'Journey through the world of traditional music instruments from different cultures. Explore the history, craftsmanship, and significance of these timeless creations.', 'Discover traditional music instruments.', 0, '2024-04-28 07:12:15', 'published'),
-(24, 1, 'A Tribute to Independent Filmmakers', 12, 'Celebrate the creativity and passion of independent filmmakers who challenge conventions and push boundaries in storytelling. Discover indie films that redefine cinema.', 'Explore indie filmmaking.', 0, '2024-04-28 07:12:15', 'published'),
 (25, 2, 'Advanced Data Analysis Techniques with Python', 8, 'Unlock the full potential of data analysis with Python. Explore advanced techniques for data visualization, machine learning, and statistical analysis.', 'Master data analysis with Python.', 0, '2024-04-28 07:12:15', 'published'),
 (26, 1, 'Effective Cross-Browser Testing Strategies', 9, 'Ensure seamless user experiences across all browsers with effective cross-browser testing strategies. From compatibility testing to responsive design checks, cover all bases.', 'Optimize your cross-browser testing.', 0, '2024-04-28 07:12:15', 'published'),
 (27, 2, 'Crafting Memorable Brand Identities', 10, 'Learn the art of brand identity design and create lasting impressions with your brand. From logo design to brand messaging, craft a cohesive identity that resonates.', 'Build a strong brand identity.', 0, '2024-04-28 07:12:15', 'published'),
@@ -237,7 +236,9 @@ INSERT INTO `posts` (`id`, `user_id`, `title`, `forum_id`, `content`, `excerpt`,
 (51, 1, 'Indie Game Revolution: Exploring the Rise of Independent Gaming', 12, 'Witness the indie game revolution and discover the groundbreaking titles and visionary developers reshaping the gaming industry. From narrative-driven adventures to experimental art games, indie games defy conventions.', 'Explore indie gaming revolution.', 1, '2024-04-28 07:16:55', 'published'),
 (52, 2, 'Koopals', 12, 'This is a greate movie!', 'This is a greate movie!', 0, '2024-04-28 07:18:24', 'pending_approval'),
 (53, 2, 'Tita', 10, 'asdfasdfsadf', 'fasdfasdf', 0, '2024-04-28 07:37:22', 'pending_approval'),
-(54, 18, 'Tae', 8, 'TEA', 'asdad', 0, '2024-04-28 07:58:55', 'pending_approval');
+(54, 18, 'Tae', 8, 'TEA', 'asdad', 0, '2024-04-28 07:58:55', 'pending_approval'),
+(55, 2, 'How to create a PHP function?', 8, 'I would like to know how to create a PHP function', 'I would like to know how to create a PHP function', 0, '2024-04-30 08:52:06', 'pending_approval'),
+(56, 2, 'How to create an SQL query?', 8, 'I want to create an SQL query please!', 'I want to create an SQL query please! excerpt', 0, '2024-04-30 08:56:35', 'pending_approval');
 
 -- --------------------------------------------------------
 
@@ -277,7 +278,6 @@ INSERT INTO `posts_replies` (`id`, `user_id`, `post_id`, `content`, `votes`, `re
 (16, 2, 19, 'Use HTTPS protocol and implement input validation to enhance web application security.', 15, '2024-05-01 15:30:00'),
 (17, 1, 21, 'Good UI/UX design considers both aesthetics and user experience to create intuitive interfaces.', 17, '2024-05-01 12:30:00'),
 (18, 2, 23, 'Typography plays a crucial role in design, influencing readability and visual appeal.', 19, '2024-05-01 14:30:00'),
-(19, 1, 2, 'I recommend \"The Midnight Library\" by Matt Haig. It\'s a thought-provoking read!', 12, '2024-05-01 13:30:00'),
 (20, 2, 3, 'My all-time favorite movie is \"The Shawshank Redemption\". It\'s a classic!', 4, '2024-05-01 14:30:00'),
 (21, 1, 6, 'Troubleshooting network issues often involves checking your router settings and restarting devices.', 18, '2024-05-01 12:30:00'),
 (22, 2, 8, 'For hardware upgrades, consider upgrading your RAM or SSD for improved performance.', 17, '2024-05-01 14:30:00'),
@@ -298,7 +298,8 @@ INSERT INTO `posts_replies` (`id`, `user_id`, `post_id`, `content`, `votes`, `re
 (37, 2, 10, 'tangina mo ', 5, '2024-04-28 04:33:57'),
 (38, 2, 20, 'turtle neck', 2, '2024-04-28 05:05:33'),
 (39, 2, 39, 'napakawalang kwentang posts', 0, '2024-04-28 06:34:18'),
-(40, 2, 53, 'bobo ka!', 2, '2024-04-28 07:37:28');
+(40, 2, 53, 'bobo ka!', 2, '2024-04-28 07:37:28'),
+(41, 2, 18, 'asdgasdg', 0, '2024-04-30 08:26:37');
 
 -- --------------------------------------------------------
 
@@ -350,7 +351,8 @@ INSERT INTO `private_messages` (`id`, `sender_id`, `receiver_id`, `message`, `se
 (39, 14, 16, 'Hey user2, could you share your experience with learning JavaScript?', '2024-04-28 07:58:08'),
 (40, 16, 14, 'Of course moderator_user. JavaScript can be challenging, but there are many resources available online.', '2024-04-28 07:58:08'),
 (41, 18, 15, 'asdfasdfasdf', '2024-04-28 09:52:17'),
-(42, 18, 14, 'Hoy tangina mo!', '2024-04-28 09:52:44');
+(42, 18, 14, 'Hoy tangina mo!', '2024-04-28 09:52:44'),
+(43, 2, 13, 'tset', '2024-04-30 09:02:51');
 
 -- --------------------------------------------------------
 
@@ -375,7 +377,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `tier_level`, `created_at`, `updated_at`) VALUES
 (1, 'Radiant Juan', 'radiantcjuan@gmail.com', '$2y$10$7JCCzXIfhqjCgRylVuYuhOUaS4JRlPJO85fbmzSLtRnlTEqkHwFSW', 'user', 1, '2024-04-24 06:28:45', NULL),
-(2, 'Radiant Juanssssss', 'radadmin@gmail.com', '$2y$10$7JCCzXIfhqjCgRylVuYuhOUaS4JRlPJO85fbmzSLtRnlTEqkHwFSW', 'user', 1, '2024-04-24 08:08:46', '2024-04-27 04:42:21'),
+(2, 'Radiant Juan', 'radadmin@gmail.com', '$2y$10$7JCCzXIfhqjCgRylVuYuhOUaS4JRlPJO85fbmzSLtRnlTEqkHwFSW', 'user', 1, '2024-04-24 08:08:46', '2024-04-30 08:50:49'),
 (12, 'rjuan', 'radiant.juan@templeandwebster.com.au', '$2y$10$2fSLINRFj6xqNFY.Kdg0wug9q9SAXqXE47oSqBeV3pOY09Iz/Hzma', 'moderator', 1, '2024-04-27 05:10:12', '2024-04-27 14:09:16'),
 (13, 'admin_user', 'admin@example.com', '$2y$10$7JCCzXIfhqjCgRylVuYuhOUaS4JRlPJO85fbmzSLtRnlTEqkHwFSW', 'admin', 1, '2024-04-28 07:54:19', NULL),
 (14, 'moderator_user', 'moderator@example.com', '$2y$10$7JCCzXIfhqjCgRylVuYuhOUaS4JRlPJO85fbmzSLtRnlTEqkHwFSW', 'moderator', 1, '2024-04-28 07:54:19', NULL),
@@ -433,7 +435,7 @@ ALTER TABLE `posts`
 ALTER TABLE `posts_replies`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `post_id` (`post_id`);
+  ADD KEY `fk_post_id` (`post_id`);
 
 --
 -- Indexes for table `private_messages`
@@ -482,19 +484,19 @@ ALTER TABLE `group_memberships`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `posts_replies`
 --
 ALTER TABLE `posts_replies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `private_messages`
 --
 ALTER TABLE `private_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -537,6 +539,7 @@ ALTER TABLE `posts`
 -- Constraints for table `posts_replies`
 --
 ALTER TABLE `posts_replies`
+  ADD CONSTRAINT `fk_post_id` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `posts_replies_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `posts_replies_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`);
 

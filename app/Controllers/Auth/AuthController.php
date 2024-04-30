@@ -61,7 +61,8 @@ class AuthController extends BaseController
      */
     public function register()
     {
-        View::render('Auth/registration', ['error' => $_SESSION['error']]);
+        $error = empty($_SESSION['error']) ? null : $_SESSION['error'];
+        View::render('Auth/registration', compact('error'));
         unset($_SESSION['error']);
     }
 

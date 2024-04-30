@@ -64,7 +64,7 @@ Layout view
 <body>
 <?php
 //
-$user_logged_in = $_SESSION['user_id'];
+$user_logged_in = empty($_SESSION['user_id']) ? false : $_SESSION['user_id'];
 ?>
 
 <?php

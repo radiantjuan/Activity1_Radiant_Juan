@@ -31,8 +31,9 @@ class ForumsController extends BaseController
      */
     public function index()
     {
-        $forums = $this->forums_model->get_all_forums_with_posts_counts($_GET['sort_type']);
-        View::render('Forums/index', ['data' => $forums, 'sort_type' => $_GET['sort_type']]);
+        $sort_type = empty($_GET['sort_type']) ? null : $_GET['sort_type'];
+        $forums = $this->forums_model->get_all_forums_with_posts_counts($sort_type);
+        View::render('Forums/index', ['data' => $forums, 'sort_type' => $sort_type]);
     }
 
     /**

@@ -70,7 +70,8 @@ class GroupsMembershipModel extends BaseModel
                 LEFT JOIN
                     users ui ON i.invited_by = ui.id
                 WHERE
-                    i.invitation_status = 'pending';
+                    i.invitation_status = 'pending' AND
+                    i.user_id = :user_id;
 ";
         $pending_invites = $this->query($sql, [':user_id' => $user_id]);
         return $pending_invites;

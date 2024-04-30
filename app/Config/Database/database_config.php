@@ -6,8 +6,8 @@
  * @copyright 2024 Radiant Juan - K230925
  */
 return [
-    'host' => 'mysql',
+    'host' => '127.0.0.1',
     'name' => 'php_online_discussion_forum',
-    'user' => 'online_discussion_usr',
-    'password' => 'X0M8baWg6zxvAqPV'
+    'user' => 'root',
+    'password' => ''
 ];

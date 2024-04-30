@@ -9,6 +9,7 @@
 namespace App\Models;
 
 use App\Config\Database\BaseModel;
+use App\Utilities\DebugHelper;
 
 class GroupsModel extends BaseModel
 {

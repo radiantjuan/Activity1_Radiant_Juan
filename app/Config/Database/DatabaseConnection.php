@@ -33,7 +33,7 @@ class DatabaseConnection implements DatabaseConnectionInterface
         $dbPassword = $this->config['password'];
 
         try {
-            $pdo = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPassword);
+            $pdo = new PDO("mysql:host=$dbHost; dbname=$dbName", $dbUser, $dbPassword);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             return $pdo;

@@ -8,7 +8,7 @@ Inbox message
 <?php
 
 $sent_message = empty(\App\Config\Views\View::getData('messages')['messages']) ? [] : \App\Config\Views\View::getData('messages')['messages'];
-$sent_message_total_count = empty(\App\Config\Views\View::getData('messages')['total_pages']) ? [] : \App\Config\Views\View::getData('messages')['total_pages'];
+$sent_message_total_count = empty(\App\Config\Views\View::getData('messages')['total_pages']) ? 0 : \App\Config\Views\View::getData('messages')['total_pages'];
 $current_page = empty($_GET['current_page']) ? 1 : $_GET['current_page'];
 ?>
 

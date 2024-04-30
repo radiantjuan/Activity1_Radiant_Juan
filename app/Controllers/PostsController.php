@@ -206,4 +206,11 @@ class PostsController extends BaseController
         return $errors;
     }
 
+    public function delete_post($request)
+    {
+        $this->post_model->delete($request['post_id']);
+        header('Location: /posts');
+        exit();
+    }
+
 }

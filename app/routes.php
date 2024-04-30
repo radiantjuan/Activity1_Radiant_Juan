@@ -30,10 +30,10 @@ Route::get('/forums/{forum_slug}/posts', \App\Controllers\ForumsController::clas
 Route::get('/posts', \App\Controllers\PostsController::class, 'index');
 Route::get('/posts/add-posts', \App\Controllers\PostsController::class, 'add_posts');
 Route::post('/posts/create-posts', \App\Controllers\PostsController::class, 'create_posts');
+Route::delete('/posts/delete', \App\Controllers\PostsController::class, 'delete_post');
 Route::get('/posts/{post_id}', \App\Controllers\PostsController::class, 'show');
 Route::post('/posts/{post_id}/reply', \App\Controllers\PostsController::class, 'reply_to_post');
 Route::patch('/posts/post_reply/vote', \App\Controllers\PostsController::class, 'vote_reply');
-
 
 //inbox
 Route::get('/messages/inbox', \App\Controllers\MessagingController::class, 'inbox');

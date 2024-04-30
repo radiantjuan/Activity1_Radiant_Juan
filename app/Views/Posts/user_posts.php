@@ -53,7 +53,7 @@ $next_page_url = !empty($_GET['page']) ? '/posts?page=' . ((int)$current_page + 
     <div class="list-group">
         <!-- Replace the following block with dynamic content -->
         <?php foreach ($posts as $post): ?>
-            <a href="/posts/<?= $post['id'] ?>" class="list-group-item list-group-item-action">
+            <div class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1"><?= $post['title'] ?></h5>
                     <small><?= $post['post_date'] ?></small>
@@ -69,12 +69,17 @@ $next_page_url = !empty($_GET['page']) ? '/posts?page=' . ((int)$current_page + 
                 <?php } elseif ($post['posts_status'] == 'deleted') { ?>
                     <span class="badge badge-danger">Deleted</span>
                 <?php } ?>
-            </a>
-
+                <!-- Delete Button -->
+                <form action="/posts/delete" method="post" class="mt-2">
+                    <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </div>
         <?php endforeach; ?>
-
         <!-- End of dynamic content block -->
     </div>
+
 
     <!-- Pagination -->
     <nav aria-label="Page navigation">

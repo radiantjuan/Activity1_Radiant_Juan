@@ -6,6 +6,7 @@ Groups page view
 -->
 <?php
 $groups = empty(\App\Config\Views\View::getData('groups')) ? [] : \App\Config\Views\View::getData('groups');
+$pending_invites = empty(\App\Config\Views\View::getData('group_invites')) ? [] : \App\Config\Views\View::getData('group_invites');
 ?>
 <div class="container mt-4">
     <h2>Groups</h2>
@@ -14,7 +15,8 @@ $groups = empty(\App\Config\Views\View::getData('groups')) ? [] : \App\Config\Vi
             <ul class="list-group">
                 <?php foreach ($groups as $group): ?>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href="/groups/<?= $group['group_id'] ?>/group_members" class="group-link"><?= $group['group_name'] ?></a>
+                        <a href="/groups/<?= $group['group_id'] ?>/group_members"
+                           class="group-link"><?= $group['group_name'] ?></a>
                         <span class="badge badge-primary badge-pill"><?= $group['member_count'] ?> members</span>
                     </li>
                 <?php endforeach; ?>

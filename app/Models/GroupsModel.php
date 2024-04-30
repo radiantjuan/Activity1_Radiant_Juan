@@ -19,6 +19,11 @@ class GroupsModel extends BaseModel
         parent::__construct();
     }
 
+    /**
+     * Retrieve groups with member counts
+     *
+     * @return array|false
+     */
     public function get_groups_with_member_counts()
     {
         $user_id = $_SESSION['user_id'];

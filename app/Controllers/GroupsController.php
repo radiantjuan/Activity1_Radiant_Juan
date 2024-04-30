@@ -35,7 +35,8 @@ class GroupsController extends BaseController
     public function index()
     {
         $groups = $this->groups_model->get_groups_with_member_counts();
-        View::render('Groups/index', compact('groups'));
+        $group_invites = $this->group_members_model->get_group_membership_invites();
+        View::render('Groups/index', compact('groups', 'group_invites'));
     }
 
     /**
